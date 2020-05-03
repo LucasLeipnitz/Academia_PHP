@@ -2,6 +2,7 @@
 <html lang="pt_BR">
     <head>
         <meta charset="UTF-8">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <style>
             header {
                 padding-top: 0px;
@@ -28,16 +29,66 @@
             li a:hover {
                 background-color: #111111;
             }
+            div {
+                background-color: #772953;
+                color: white;
+                margin: 20px;
+                padding: 20px;
+            }
         </style>
     </head>
-    <body style="background-color:rgb(54, 9, 9); margin: 0px; ">
+    <body style="background-color:rgb(54, 9, 9); margin: 0px">
         <header>
             <ul>
-                <li><a href="#home">Home</a></li>
-                <li><a href="#news">Consultar</a></li>
-                <li><a href="#contact">Adicionar</a></li>
-                <li><a href="#about">Deletar</a></li>
+                <li><a id ="opt_home" href="#home">Home</a></li>
+                <li><a id ="opt_consult" href="#consult">Consultar</a></li>
+                <li><a id ="opt_insert" href="#insert">Adicionar</a></li>
+                <li><a id ="opt_delete" href="#delete">Deletar</a></li>
             </ul>
         </header>
+        <div id="homescreen" style="display: block">HOME</div>
+        <div id="consultscreen" style="display: none">CONSULT</div>
+        <div id="insertscreen" style="display: none">
+            <input id="clientname"/>
+            <button id="enterbt">Enter</button>
+            <div id="result"></div>
+        </div>
+        <div id="deletescreen" style="display: none">DELETE</div>
+        <script>
+            $("#enterbt").on("click",function() {
+                $.ajax({
+                    type: "POST",
+                    url: "../backend/control.php",
+                    data: "op=insert" + "&" + "name=" + $("#clientname").val(),
+                    success: function(msg){
+                        $("#result").html(msg);
+                    }
+                });
+            }); 
+            document.getElementById("opt_home").onclick = function() { 
+                document.getElementById("homescreen").style.display = "block";
+                document.getElementById("consultscreen").style.display = "none";  
+                document.getElementById("insertscreen").style.display = "none";
+                document.getElementById("deletescreen").style.display = "none";  
+            } 
+            document.getElementById("opt_consult").onclick = function() { 
+                document.getElementById("homescreen").style.display = "none";
+                document.getElementById("consultscreen").style.display = "block";  
+                document.getElementById("insertscreen").style.display = "none";
+                document.getElementById("deletescreen").style.display = "none";  
+            } 
+            document.getElementById("opt_insert").onclick = function() { 
+                document.getElementById("homescreen").style.display = "none";
+                document.getElementById("consultscreen").style.display = "none";  
+                document.getElementById("insertscreen").style.display = "block";
+                document.getElementById("deletescreen").style.display = "none";  
+            }
+            document.getElementById("opt_delete").onclick = function() { 
+                document.getElementById("homescreen").style.display = "none";
+                document.getElementById("consultscreen").style.display = "none";  
+                document.getElementById("insertscreen").style.display = "none";
+                document.getElementById("deletescreen").style.display = "block";  
+            }    
+        </script>
     </body>
 </html>

@@ -87,10 +87,4 @@ class Connection{
     }
     */
 }
-
-TESTES:
-$connection = new Connection();
-$connection->insert("joao smiti", 23);
-
-
 ?>
