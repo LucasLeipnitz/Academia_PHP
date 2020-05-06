@@ -41,30 +41,65 @@
         <header>
             <ul>
                 <li><a id ="opt_home" href="#home">Home</a></li>
-                <li><a id ="opt_consult" href="#consult">Consultar</a></li>
-                <li><a id ="opt_insert" href="#insert">Adicionar</a></li>
-                <li><a id ="opt_delete" href="#delete">Deletar</a></li>
+                <li><a id ="opt_consult" href="#consult">Consultar Cliente</a></li>
+                <li><a id ="opt_insert" href="#insert">Adicionar Cliente</a></li>
+                <li><a id ="opt_delete" href="#delete">Deletar Cliente</a></li>
             </ul>
         </header>
         <div id="homescreen" style="display: block">HOME</div>
         <div id="consultscreen" style="display: none">CONSULT</div>
         <div id="insertscreen" style="display: none">
-            <input id="clientname"/>
-            <button id="enterbt">Enter</button>
-            <div id="result"></div>
+            <fieldset>
+                <legend>Informações do usuário:</legend>
+                <label for="clientname">Nome:</label><br>
+                <input id="clientname"/><br><br>
+                <label for="clientage">Idade:</label><br>
+                <input id="clientage"/><br><br>
+                <label for="clientweigth">Peso:</label><br>
+                <input id="clientweigth"/><br><br>
+                <label for="clientheight">Altura:</label><br>
+                <input id="clientheight"/><br><br>
+                <label for="clientplan">Plano:</label><br>
+                <input id="clientplan"/><br><br>
+                <button id="enterbt">Entrar</button>
+                <div id="result"></div>
+            </fieldset>
         </div>
-        <div id="deletescreen" style="display: none">DELETE</div>
+        <div id="deletescreen" style="display: none">
+            <label for="deletename">Nome do cliente a ser deletado:</label><br>
+            <input id="deletename"/><br><br>
+            <button id="deletebt">Entrar</button>
+            <div id="deleteresult"></div>
+        </div>
         <script>
             $("#enterbt").on("click",function() {
                 $.ajax({
                     type: "POST",
                     url: "../backend/control.php",
-                    data: "op=insert" + "&" + "name=" + $("#clientname").val(),
-                    success: function(msg){
-                        $("#result").html(msg);
+                    data: "op=insert"
+                          + "&" + "name=" + $("#clientname").val()
+                          + "&" + "age=" + $("#clientage").val()
+                          + "&" + "weigth=" + $("#clientweigth").val()
+                          + "&" + "height=" + $("#clientheight").val()
+                          + "&" + "plan=" + $("#clientplan").val(),
+                    success: function(){
+                        $("#result").html("Adicionado com sucesso");
                     }
                 });
-            }); 
+            });
+
+            $("#deletebt").on("click",function() {
+                $.ajax({
+                    type: "POST",
+                    url: "../backend/control.php",
+                    data: "op=delete"
+                          + "&" + "name=" + $("#deletename").val(),
+                    success: function(){
+                        $("#deleteresult").html("Deletado com sucesso");
+                    }
+                });
+            });
+
             document.getElementById("opt_home").onclick = function() { 
                 document.getElementById("homescreen").style.display = "block";
                 document.getElementById("consultscreen").style.display = "none";  

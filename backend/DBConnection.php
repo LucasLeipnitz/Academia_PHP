@@ -49,10 +49,13 @@ class Connection{
         }
     }
    	 
-    public function insert(string $nome, int $idade){
-        $query = "INSERT INTO usuario (nome, idade) VALUES("."'" 
-        .$nome."'"."," 
-        .(string)$idade.")";
+    public function insert(string $name, int $age, float $weigth, float $height, string $plan){
+        $query = "INSERT INTO usuario (nome, idade, peso, altura, plano) VALUES("."'" 
+        .$name."'"."," 
+        .(string)$age.","
+        .(string)$weigth.","
+        .(string)$height.","."'"
+        .$plan."'".")";
 
         if ($this->openConnection())
         {
@@ -61,16 +64,31 @@ class Connection{
         }
     }
     
+    public function delete(string $name)
+    {
+        $query = "DELETE FROM usuario WHERE nome="."'".$name."'";
+        if ($this->openConnection())
+        {
+            $q = $this->db->exec($query);
+            $this->CloseConnection();
+        }
+    }
+
+    public function select(string $name)
+    {
+        $query = "SELECT * FROM usuario WHERE nome='Lucas'";
+        if ($this->openConnection())
+        {
+            foreach ($this->db->query($query) as $row) {
+                return $row;
+            }
+            $this->CloseConnection();
+        }
+        return null;
+    }
+
     /*
     public void Update()
-    {
-    }
-
-    public void Delete()
-    {
-    }
-
-    public List <string> [] Select()
     {
     }
 
