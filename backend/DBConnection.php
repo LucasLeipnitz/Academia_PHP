@@ -76,7 +76,7 @@ class Connection{
 
     public function select(string $name)
     {
-        $query = "SELECT * FROM usuario WHERE nome='Lucas'";
+        $query = "SELECT * FROM usuario WHERE nome='".$name."'";
         if ($this->openConnection())
         {
             foreach ($this->db->query($query) as $row) {

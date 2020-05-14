@@ -15,32 +15,37 @@ class Client{
     	$this->id = $id;
     	$this->name = $name;
     	$this->age = $age;
-    	$this->weigth = $height;
+    	$this->weigth = $weigth;
+    	$this->height = $height;
     	$this->plan = $plan;
     }
 
 	public function getId(){
-		return $id;
+		return $this->id;
 	}
 
 	public function getName(){
-		return $name;
+		return $this->name;
 	}
 
 	public function getAge(){
-		return $age;
+		return $this->age;
 	}
 
 	public function getWeigth(){
-		return $weight;
+		return $this->weigth;
 	}
 
 	public function getHeight(){
-		return $height;
+		return $this->height;
 	}
 
 	public function getPlan(){
-		return $plan;
+		return $this->plan;
+	}
+
+	public function getBMI(){
+		return $this->weigth/($this->height*$this->height);
 	}
 }
 

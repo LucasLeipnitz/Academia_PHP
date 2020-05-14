@@ -47,7 +47,12 @@
             </ul>
         </header>
         <div id="homescreen" style="display: block">HOME</div>
-        <div id="consultscreen" style="display: none">CONSULT</div>
+        <div id="consultscreen" style="display: none">
+            <label for="consultname">Nome do cliente a ser consultado:</label><br>
+            <input id="consultname"/><br><br>
+            <button id="consultbt">Entrar</button>
+            <div id="consultresult"></div>
+        </div>
         <div id="insertscreen" style="display: none">
             <fieldset>
                 <legend>Informações do usuário:</legend>
@@ -96,6 +101,18 @@
                           + "&" + "name=" + $("#deletename").val(),
                     success: function(){
                         $("#deleteresult").html("Deletado com sucesso");
+                    }
+                });
+            });
+
+            $("#consultbt").on("click",function() {
+                $.ajax({
+                    type: "POST",
+                    url: "../backend/control.php",
+                    data: "op=select"
+                          + "&" + "name=" + $("#consultname").val(),
+                    success: function(msg){
+                        $("#consultresult").html(msg);
                     }
                 });
             });
